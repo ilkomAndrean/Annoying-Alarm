@@ -1,6 +1,5 @@
 package com.example.andre.annoying_alarm;
 
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.andre.annoying_alarm.database.Database;
-import com.example.andre.annoying_alarm.preferences.AlarmPreferencesActivity;
 
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class AlarmActivity extends BaseActivity {
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
 				view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
 				final Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
-				Builder dialog = new AlertDialog.Builder(AlarmActivity.this);
+				Builder dialog = new Builder(AlarmActivity.this);
 				dialog.setTitle("Delete");
 				dialog.setMessage("Delete this alarm?");
 				dialog.setPositiveButton("Ok", new OnClickListener() {
@@ -114,7 +112,7 @@ public class AlarmActivity extends BaseActivity {
 		runOnUiThread(new Runnable() {
 			public void run() {
 				// reload content			
-				AlarmActivity.this.alarmListAdapter.notifyDataSetChanged();				
+				AlarmActivity.this.alarmListAdapter.notifyDataSetChanged();
 				if(alarms.size() > 0){
 					findViewById(android.R.id.empty).setVisibility(View.INVISIBLE);
 				}else{

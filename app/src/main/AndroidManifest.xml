@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.andre.annoying_alarm"
     android:versionCode="4"
-    android:versionName="1.3" >
+    android:versionName="1.3">
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -11,28 +11,36 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <android:uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
-
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
         <activity
-            android:name="com.example.andre.annoying_alarm.AlarmActivity"
-            android:label="@string/app_name" >
+            android:name=".Splashscreen"
+            android:label="@string/app_name"
+            android:theme="@style/Splashscreen"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity android:name=".AlarmActivity" android:label="@string/app_name"></activity>
+
         <activity
-            android:name="com.example.andre.annoying_alarm.preferences.AlarmPreferencesActivity"
+            android:name=".preferences.AlarmPreferencesActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.andre.annoying_alarm.AlarmActivity" >
+            android:parentActivityName=".AlarmActivity">
+
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -40,30 +48,29 @@
         </activity>
 
         <service
-            android:process="com.example.andre.annoying_alarm.serviceProcess"
-            android:name="com.example.andre.annoying_alarm.service.AlarmService"
+            android:name=".service.AlarmService"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
-            >
-        </service>
-        <receiver android:name="com.example.andre.annoying_alarm.service.AlarmServiceBroadcastReciever" >
+            android:process="com.example.andre.annoying_alarm.serviceProcess"></service>
+
+        <receiver android:name=".service.AlarmServiceBroadcastReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity
-            android:name = "com.example.andre.annoying_alarm.alert.AlarmAlertActivity"
+            android:name=".alert.AlarmAlertActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
-        <receiver android:name="com.example.andre.annoying_alarm.alert.AlarmAlertBroadcastReciever" >
-        </receiver>
-        <receiver android:name = "com.example.andre.annoying_alarm.Static.PhoneStateChangedBroadcastReciever">
+            android:screenOrientation="portrait"></activity>
+
+        <receiver android:name=".alert.AlarmAlertBroadcastReciever"></receiver>
+        <receiver android:name=".Static.PhoneStateChangedBroadcastReciever">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

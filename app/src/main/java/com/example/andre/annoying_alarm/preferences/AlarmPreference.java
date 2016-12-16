@@ -1,7 +1,7 @@
 package com.example.andre.annoying_alarm.preferences;
 
 public class AlarmPreference {
-	
+
 	public enum Key{
 		ALARM_NAME,
 		ALARM_ACTIVE,
@@ -9,24 +9,25 @@ public class AlarmPreference {
 		ALARM_REPEAT,
 		ALARM_TONE,
 		ALARM_VIBRATE,
+		ALARM_DIFFICULTY
 	}
-	
-	public enum Type{		
+
+	public enum Type{
 		BOOLEAN,
 		INTEGER,
 		STRING,
 		LIST,
 		MULTIPLE_LIST,
-		TIME	
+		TIME
 	}
-	
+
 	private Key key;
 	private String title;
 	private String summary;
 	private Object value;
 	private String[] options;
-	private Type type;	
-	
+	private Type type;
+
 	public AlarmPreference(Key key, Object value, Type type) {
 		this(key,null,null,null, value, type);
 	}
@@ -39,7 +40,7 @@ public class AlarmPreference {
 		setValue(value);
 		setType(type);
 	}
-	
+
 	public Key getKey() {
 		return key;
 	}

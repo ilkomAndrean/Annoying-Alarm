@@ -37,7 +37,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 	private TextView problemView;
 	private TextView answerView;
 	private String answerString;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +53,18 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 		alarm = (Alarm) bundle.getSerializable("alarm");
 
 		this.setTitle(alarm.getAlarmName());
+
+		switch (alarm.getDifficulty()) {
+			case EASY:
+				mathProblem = new MathProblem(4);
+				break;
+			case MEDIUM:
+				mathProblem = new MathProblem(5);
+				break;
+			case HARD:
+				mathProblem = new MathProblem(6);
+				break;
+		}
 
 		answerString = String.valueOf(mathProblem.getAnswer());
 		if (answerString.endsWith(".0")) {
@@ -86,23 +98,23 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 			@Override
 			public void onCallStateChanged(int state, String incomingNumber) {
 				switch (state) {
-				case TelephonyManager.CALL_STATE_RINGING:
-					Log.d(getClass().getSimpleName(), "Incoming call: "
-							+ incomingNumber);
-					try {
-						mediaPlayer.pause();
-					} catch (IllegalStateException e) {
+					case TelephonyManager.CALL_STATE_RINGING:
+						Log.d(getClass().getSimpleName(), "Incoming call: "
+								+ incomingNumber);
+						try {
+							mediaPlayer.pause();
+						} catch (IllegalStateException e) {
 
-					}
-					break;
-				case TelephonyManager.CALL_STATE_IDLE:
-					Log.d(getClass().getSimpleName(), "Call State Idle");
-					try {
-						mediaPlayer.start();
-					} catch (IllegalStateException e) {
+						}
+						break;
+					case TelephonyManager.CALL_STATE_IDLE:
+						Log.d(getClass().getSimpleName(), "Call State Idle");
+						try {
+							mediaPlayer.start();
+						} catch (IllegalStateException e) {
 
-					}
-					break;
+						}
+						break;
 				}
 				super.onCallStateChanged(state, incomingNumber);
 			}
@@ -111,6 +123,7 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 		telephonyManager.listen(phoneStateListener,
 				PhoneStateListener.LISTEN_CALL_STATE);
 
+		// Toast.makeText(this, answerString, Toast.LENGTH_LONG).show();
 
 		startAlarm();
 
@@ -148,14 +161,22 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see android.app.Activity#onBackPressed()
+	 */
 	@Override
 	public void onBackPressed() {
 		if (!alarmActive)
 			super.onBackPressed();
 	}
 
-
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see android.app.Activity#onPause()
+	 */
 	@Override
 	protected void onPause() {
 		super.onPause();

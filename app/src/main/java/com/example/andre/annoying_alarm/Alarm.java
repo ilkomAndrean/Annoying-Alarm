@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 
+import com.example.andre.annoying_alarm.alert.AlarmAlertBroadcastReciever;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -13,15 +15,13 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.example.andre.annoying_alarm.alert.AlarmAlertBroadcastReciever;
-
 public class Alarm implements Serializable {
 
 	public enum Difficulty{
 		EASY,
 		MEDIUM,
 		HARD;
-		
+
 		@Override
 		public String toString() {
 			switch(this.ordinal()){
@@ -35,7 +35,7 @@ public class Alarm implements Serializable {
 			return super.toString();
 		}
 	}
-	
+
 	public enum Day{
 		SUNDAY,
 		MONDAY,
@@ -65,7 +65,7 @@ public class Alarm implements Serializable {
 			}
 			return super.toString();
 		}
-		
+
 	}
 	private static final long serialVersionUID = 8699489847426803789L;
 	private int id;
@@ -76,24 +76,43 @@ public class Alarm implements Serializable {
 	private Boolean vibrate = true;
 	private String alarmName = "Alarm Clock";
 	private Difficulty difficulty = Difficulty.EASY;
-	
+
 	public Alarm() {
 
 	}
 
+//	private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+//		out.defaultWriteObject();
+//		out.writeObject(getAlarmToneUri().getEncodedPath());
+//	}
 
+//	private void readObject(java.io.ObjectInputStream in) throws IOException {
+//		try {
+//			in.defaultReadObject();
+//			this.setAlarmToneUri(Uri.parse(in.readObject().toString()));
+//		} catch (ClassNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
-
+	/**
+	 * @return the alarmActive
+	 */
 	public Boolean getAlarmActive() {
 		return alarmActive;
 	}
 
-
+	/**
+	 * @param alarmActive
+	 *            the alarmActive to set
+	 */
 	public void setAlarmActive(Boolean alarmActive) {
 		this.alarmActive = alarmActive;
 	}
 
-
+	/**
+	 * @return the alarmTime
+	 */
 	public Calendar getAlarmTime() {
 		if (alarmTime.before(Calendar.getInstance()))
 			alarmTime.add(Calendar.DAY_OF_MONTH, 1);
@@ -103,7 +122,9 @@ public class Alarm implements Serializable {
 		return alarmTime;
 	}
 
-
+	/**
+	 * @return the alarmTime
+	 */
 	public String getAlarmTimeString() {
 
 		String time = "";
@@ -119,12 +140,18 @@ public class Alarm implements Serializable {
 		return time;
 	}
 
-
+	/**
+	 * @param alarmTime
+	 *            the alarmTime to set
+	 */
 	public void setAlarmTime(Calendar alarmTime) {
 		this.alarmTime = alarmTime;
 	}
 
-
+	/**
+	 * @param alarmTime
+	 *            the alarmTime to set
+	 */
 	public void setAlarmTime(String alarmTime) {
 
 		String[] timePieces = alarmTime.split(":");
@@ -134,14 +161,20 @@ public class Alarm implements Serializable {
 				Integer.parseInt(timePieces[0]));
 		newAlarmTime.set(Calendar.MINUTE, Integer.parseInt(timePieces[1]));
 		newAlarmTime.set(Calendar.SECOND, 0);
-		setAlarmTime(newAlarmTime);		
+		setAlarmTime(newAlarmTime);
 	}
 
+	/**
+	 * @return the repeatDays
+	 */
 	public Day[] getDays() {
 		return days;
 	}
 
-
+	/**
+	 * @param set
+	 *            the repeatDays to set
+	 */
 	public void setDays(Day[] days) {
 		this.days = days;
 	}
@@ -159,41 +192,56 @@ public class Alarm implements Serializable {
 			setDays(result.toArray(new Day[result.size()]));
 		}
 	}
-	
-	public void removeDay(Day day) {
-	    
-		List<Day> result = new LinkedList<Day>();
-	    for(Day d : getDays())
-	        if(!d.equals(day))
-	            result.add(d);
-	    setDays(result.toArray(new Day[result.size()]));
-	}
-	
 
+	public void removeDay(Day day) {
+
+		List<Day> result = new LinkedList<Day>();
+		for(Day d : getDays())
+			if(!d.equals(day))
+				result.add(d);
+		setDays(result.toArray(new Day[result.size()]));
+	}
+
+	/**
+	 * @return the alarmTonePath
+	 */
 	public String getAlarmTonePath() {
 		return alarmTonePath;
 	}
 
-
+	/**
+	 * @param alarmTonePath the alarmTonePath to set
+	 */
 	public void setAlarmTonePath(String alarmTonePath) {
 		this.alarmTonePath = alarmTonePath;
 	}
-	
 
+	/**
+	 * @return the vibrate
+	 */
 	public Boolean getVibrate() {
 		return vibrate;
 	}
 
-
+	/**
+	 * @param vibrate
+	 *            the vibrate to set
+	 */
 	public void setVibrate(Boolean vibrate) {
 		this.vibrate = vibrate;
 	}
 
+	/**
+	 * @return the alarmName
+	 */
 	public String getAlarmName() {
 		return alarmName;
 	}
 
-
+	/**
+	 * @param alarmName
+	 *            the alarmName to set
+	 */
 	public void setAlarmName(String alarmName) {
 		this.alarmName = alarmName;
 	}
@@ -217,35 +265,36 @@ public class Alarm implements Serializable {
 	public String getRepeatDaysString() {
 		StringBuilder daysStringBuilder = new StringBuilder();
 		if(getDays().length == Day.values().length){
-			daysStringBuilder.append("Every Day");		
+			daysStringBuilder.append("Every Day");
 		}else{
 			Arrays.sort(getDays(), new Comparator<Day>() {
 				@Override
 				public int compare(Day lhs, Day rhs) {
-					
+
 					return lhs.ordinal() - rhs.ordinal();
 				}
 			});
 			for(Day d : getDays()){
 				switch(d){
-				case TUESDAY:
-				case THURSDAY:
-
+					case TUESDAY:
+					case THURSDAY:
+//					daysStringBuilder.append(d.toString().substring(0, 4));
+//					break;
 					default:
-						daysStringBuilder.append(d.toString().substring(0, 3));		
+						daysStringBuilder.append(d.toString().substring(0, 3));
 						break;
-				}				
+				}
 				daysStringBuilder.append(',');
 			}
 			daysStringBuilder.setLength(daysStringBuilder.length()-1);
 		}
-			
+
 		return daysStringBuilder.toString();
 	}
 
 	public void schedule(Context context) {
 		setAlarmActive(true);
-		
+
 		Intent myIntent = new Intent(context, AlarmAlertBroadcastReciever.class);
 		myIntent.putExtra("alarm", this);
 
@@ -255,7 +304,7 @@ public class Alarm implements Serializable {
 
 		alarmManager.set(AlarmManager.RTC_WAKEUP, getAlarmTime().getTimeInMillis(), pendingIntent);
 	}
-	
+
 	public String getTimeUntilNextAlarmMessage(){
 		long timeDifference = getAlarmTime().getTimeInMillis() - System.currentTimeMillis();
 		long days = timeDifference / (1000 * 60 * 60 * 24);

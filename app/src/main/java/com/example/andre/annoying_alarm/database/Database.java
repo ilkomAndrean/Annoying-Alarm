@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.andre.annoying_alarm.Alarm;
+import com.example.andre.annoying_alarm.Alarm.Difficulty;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,9 +17,6 @@ import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.andre.annoying_alarm.Alarm;
-import com.example.andre.annoying_alarm.Alarm.Difficulty;
 
 public class Database extends SQLiteOpenHelper {
 	static Database instance = null;

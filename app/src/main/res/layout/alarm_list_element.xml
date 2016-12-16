@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:paddingLeft="5dp" >
 
     <CheckBox
@@ -31,12 +32,14 @@
             android:id="@+id/textView_alarm_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/textView_alarm_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 

@@ -13,11 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
 
+import com.example.andre.annoying_alarm.Alarm;
+import com.example.andre.annoying_alarm.preferences.AlarmPreference.Type;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import com.example.andre.annoying_alarm.Alarm;
-import com.example.andre.annoying_alarm.preferences.AlarmPreference.Type;
 
 public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializable {
 
@@ -25,6 +26,7 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 	private Alarm alarm;
 	private List<AlarmPreference> preferences = new ArrayList<AlarmPreference>();
 	private final String[] repeatDays = {"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"};
+	private final String[] alarmDifficulties = {"Easy","Medium","Hard"};
 
 	private String[] alarmTones;
 	private String[] alarmTonePaths;
@@ -33,7 +35,10 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 		setContext(context);
 
 
-
+//		(new Runnable(){
+//
+//			@Override
+//			public void run() {
 		Log.d("AlarmPreferenceListAdapter", "Loading Ringtones...");
 
 		RingtoneManager ringtoneMgr = new RingtoneManager(getContext());
@@ -55,11 +60,11 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 		}
 		Log.d("AlarmPreferenceListAdapter", "Finished Loading " + alarmTones.length + " Ringtones.");
 		alarmsCursor.close();
-//				
+//
 //			}
-//			
+//
 //		}).run();
-//		
+//
 		setMathAlarm(alarm);
 	}
 
@@ -124,6 +129,9 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 				case ALARM_TIME:
 					alarm.setAlarmTime((String) preference.getValue());
 					break;
+				case ALARM_DIFFICULTY:
+					alarm.setDifficulty(Alarm.Difficulty.valueOf((String)preference.getValue()));
+					break;
 				case ALARM_TONE:
 					alarm.setAlarmTonePath((String) preference.getValue());
 					break;
@@ -146,6 +154,7 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_NAME, "Label",alarm.getAlarmName(), null, alarm.getAlarmName(), Type.STRING));
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TIME, "Set time",alarm.getAlarmTimeString(), null, alarm.getAlarmTime(), Type.TIME));
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_REPEAT, "Repeat",alarm.getRepeatDaysString(), repeatDays, alarm.getDays(),Type.MULTIPLE_LIST));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_DIFFICULTY,"Difficulty", alarm.getDifficulty().toString(), alarmDifficulties, alarm.getDifficulty(), Type.LIST));
 
 		Uri alarmToneUri = Uri.parse(alarm.getAlarmTonePath());
 		Ringtone alarmTone = RingtoneManager.getRingtone(getContext(), alarmToneUri);
@@ -170,6 +179,10 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 
 	public String[] getRepeatDays() {
 		return repeatDays;
+	}
+
+	public String[] getAlarmDifficulties() {
+		return alarmDifficulties;
 	}
 
 	public String[] getAlarmTones() {

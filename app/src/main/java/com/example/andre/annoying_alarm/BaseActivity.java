@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
 
-import com.example.andre.annoying_alarm.preferences.AlarmPreferencesActivity;
 import com.example.andre.annoying_alarm.service.AlarmServiceBroadcastReciever;
 
 import java.lang.reflect.Field;
