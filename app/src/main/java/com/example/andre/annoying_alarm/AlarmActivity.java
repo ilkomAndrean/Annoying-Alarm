@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.andre.annoying_alarm.database.Database;
+import com.example.andre.annoying_alarm.preferences.AlarmPreferencesActivity;
 
 import java.util.List;
 
