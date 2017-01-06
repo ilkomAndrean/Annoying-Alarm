@@ -48,20 +48,20 @@ public class AlarmListAdapter extends BaseAdapter {
 
 		Alarm alarm = (Alarm) getItem(position);
 
-		 CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox_alarm_active);
-		 checkBox.setChecked(alarm.getAlarmActive());
-		 checkBox.setTag(position);
-		 checkBox.setOnClickListener(alarmActivity);
-		 
+		CheckBox checkBox = (CheckBox) view.findViewById(R.id.checkBox_alarm_active);
+		checkBox.setChecked(alarm.getAlarmActive());
+		checkBox.setTag(position);
+		checkBox.setOnClickListener(alarmActivity);
+
 		TextView alarmTimeView = (TextView) view
 				.findViewById(R.id.textView_alarm_time);
 		alarmTimeView.setText(alarm.getAlarmTimeString());
 
-		
-			TextView alarmDaysView = (TextView) view
-					.findViewById(R.id.textView_alarm_days);
-			alarmDaysView.setText(alarm.getRepeatDaysString());
-		
+
+		TextView alarmDaysView = (TextView) view
+				.findViewById(R.id.textView_alarm_days);
+		alarmDaysView.setText(alarm.getRepeatDaysString());
+
 
 		return view;
 	}
@@ -73,5 +73,9 @@ public class AlarmListAdapter extends BaseAdapter {
 	public void setMathAlarms(List<Alarm> alarms) {
 		this.alarms = alarms;
 	}
+	public void setPuzzleAlarms(List<Alarm> alarms) {
+		this.alarms = alarms;
+	}
+
 
 }

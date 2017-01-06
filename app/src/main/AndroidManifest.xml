@@ -59,12 +59,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".alert.AlarmAlertActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
-
-        <receiver android:name=".alert.AlarmAlertBroadcastReciever"></receiver>
         <receiver android:name=".Static.PhoneStateChangedBroadcastReciever">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />

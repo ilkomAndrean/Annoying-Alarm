@@ -66,6 +66,8 @@ public class AlarmAlertActivity extends Activity implements OnClickListener {
 				break;
 		}
 
+
+
 		answerString = String.valueOf(mathProblem.getAnswer());
 		if (answerString.endsWith(".0")) {
 			answerString = answerString.substring(0, answerString.length() - 2);

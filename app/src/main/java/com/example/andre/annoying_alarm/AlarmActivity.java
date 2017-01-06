@@ -49,7 +49,7 @@ public class AlarmActivity extends BaseActivity {
 						Database.init(AlarmActivity.this);
 						Database.deleteEntry(alarm);
 						AlarmActivity.this.callMathAlarmScheduleService();
-						
+
 						updateAlarmList();
 					}
 				});
@@ -86,12 +86,12 @@ public class AlarmActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean result = super.onCreateOptionsMenu(menu);		
+		boolean result = super.onCreateOptionsMenu(menu);
 		menu.findItem(R.id.menu_item_save).setVisible(false);
 		menu.findItem(R.id.menu_item_delete).setVisible(false);
-	    return result;
+		return result;
 	}
-		
+
 	@Override
 	protected void onPause() {
 		// setListAdapter(null);
@@ -104,12 +104,12 @@ public class AlarmActivity extends BaseActivity {
 		super.onResume();
 		updateAlarmList();
 	}
-	
+
 	public void updateAlarmList(){
 		Database.init(AlarmActivity.this);
 		final List<Alarm> alarms = Database.getAll();
 		alarmListAdapter.setMathAlarms(alarms);
-		
+
 		runOnUiThread(new Runnable() {
 			public void run() {
 				// reload content			

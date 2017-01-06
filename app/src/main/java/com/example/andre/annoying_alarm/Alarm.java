@@ -75,7 +75,7 @@ public class Alarm implements Serializable {
 	private String alarmTonePath = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
 	private Boolean vibrate = true;
 	private String alarmName = "Alarm Clock";
-	private Difficulty difficulty = Difficulty.EASY;
+	private Difficulty difficulty = Difficulty.HARD;
 
 	public Alarm() {
 
@@ -172,7 +172,6 @@ public class Alarm implements Serializable {
 	}
 
 	/**
-	 * @param set
 	 *            the repeatDays to set
 	 */
 	public void setDays(Day[] days) {

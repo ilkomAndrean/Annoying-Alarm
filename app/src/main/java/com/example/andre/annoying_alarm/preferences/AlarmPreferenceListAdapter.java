@@ -107,9 +107,11 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 
 				TextView text1 = (TextView) convertView.findViewById(android.R.id.text1);
 				text1.setTextSize(18);
+				text1.setTextColor(0xffffffff);
 				text1.setText(alarmPreference.getTitle());
 
 				TextView text2 = (TextView) convertView.findViewById(android.R.id.text2);
+				text2.setTextColor(0xffffffff);
 				text2.setText(alarmPreference.getSummary());
 				break;
 		}
@@ -150,10 +152,10 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 	public void setMathAlarm(Alarm alarm) {
 		this.alarm = alarm;
 		preferences.clear();
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_ACTIVE,"Active", null, null, alarm.getAlarmActive(),Type.BOOLEAN));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_ACTIVE,"Active", null, null, alarm.getAlarmActive(), Type.BOOLEAN));
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_NAME, "Label",alarm.getAlarmName(), null, alarm.getAlarmName(), Type.STRING));
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_TIME, "Set time",alarm.getAlarmTimeString(), null, alarm.getAlarmTime(), Type.TIME));
-		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_REPEAT, "Repeat",alarm.getRepeatDaysString(), repeatDays, alarm.getDays(),Type.MULTIPLE_LIST));
+		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_REPEAT, "Repeat",alarm.getRepeatDaysString(), repeatDays, alarm.getDays(), Type.MULTIPLE_LIST));
 		preferences.add(new AlarmPreference(AlarmPreference.Key.ALARM_DIFFICULTY,"Difficulty", alarm.getDifficulty().toString(), alarmDifficulties, alarm.getDifficulty(), Type.LIST));
 
 		Uri alarmToneUri = Uri.parse(alarm.getAlarmTonePath());
@@ -192,5 +194,6 @@ public class AlarmPreferenceListAdapter extends BaseAdapter implements Serializa
 	public String[] getAlarmTonePaths() {
 		return alarmTonePaths;
 	}
+
 
 }

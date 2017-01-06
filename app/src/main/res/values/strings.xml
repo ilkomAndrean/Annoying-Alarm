@@ -6,11 +6,14 @@
     <string name="app_name">Annoying Alarm</string>
     <string name="title_activity_set_alarms">Set Alarm</string>
     <string name="no_alarms">No alarms have been set</string>
+    <string name="no_alarms1">Create new alarm by tapping + button</string>
 
     <string name="button_new">New</string>
 
     <!-- Menu -->
     <string name="menu_item_new">New</string>
+    <string name="menu_item_new_math">Math</string>
+    <string name="menu_item_new_puzzle">Puzzle</string>
     <string name="menu_item_save">Save</string>
     <string name="menu_item_delete">Cancel</string>
 

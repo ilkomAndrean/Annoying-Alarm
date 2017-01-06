@@ -278,6 +278,7 @@ public class AlarmPreferencesActivity extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 		menu.findItem(R.id.menu_item_new).setVisible(false);
+		//menu.findItem(R.id.menu_item_new).setVisible(false);
 		return result;
 	}
 

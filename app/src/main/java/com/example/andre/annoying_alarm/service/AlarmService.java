@@ -29,7 +29,7 @@ public class AlarmService extends Service {
 	@Override
 	public void onCreate() {
 		Log.d(this.getClass().getSimpleName(),"onCreate()");
-		super.onCreate();		
+		super.onCreate();
 	}
 
 	private Alarm getNext(){
@@ -37,7 +37,7 @@ public class AlarmService extends Service {
 			@Override
 			public int compare(Alarm lhs, Alarm rhs) {
 				int result = 0;
-				long diff = lhs.getAlarmTime().getTimeInMillis() - rhs.getAlarmTime().getTimeInMillis();				
+				long diff = lhs.getAlarmTime().getTimeInMillis() - rhs.getAlarmTime().getTimeInMillis();
 				if(diff>0){
 					return 1;
 				}else if (diff < 0){
@@ -46,10 +46,10 @@ public class AlarmService extends Service {
 				return result;
 			}
 		});
-				
+
 		Database.init(getApplicationContext());
 		List<Alarm> alarms = Database.getAll();
-		
+
 		for(Alarm alarm : alarms){
 			if(alarm.getAlarmActive())
 				alarmQueue.add(alarm);
@@ -75,14 +75,14 @@ public class AlarmService extends Service {
 		if(null != alarm){
 			alarm.schedule(getApplicationContext());
 			Log.d(this.getClass().getSimpleName(),alarm.getTimeUntilNextAlarmMessage());
-			
+
 		}else{
 			Intent myIntent = new Intent(getApplicationContext(), AlarmAlertBroadcastReciever.class);
 			myIntent.putExtra("alarm", new Alarm());
-			
+
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 			AlarmManager alarmManager = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-			
+
 			alarmManager.cancel(pendingIntent);
 		}
 		return START_NOT_STICKY;
